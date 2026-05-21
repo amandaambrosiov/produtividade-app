@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>PurpleFlow</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="topbar">
+
+      <div>
+
+        <h1>PurpleFlow</h1>
+
+        <p id="todayText"></p>
+
+      </div>
+
+      <button id="openCalendar">
+        <i class="fa-solid fa-calendar"></i>
+      </button>
+
+    </header>
+
+    <!-- DASHBOARD -->
+    <section class="dashboard">
+
+      <div class="small-card pending">
+
+        <span>Pendentes</span>
+
+        <h3 id="pendingCount">
+          0
+        </h3>
+
+      </div>
+
+      <div class="small-card completed">
+
+        <span>Concluídas</span>
+
+        <h3 id="completedCount">
+          0
+        </h3>
+
+      </div>
+
+    </section>
+
+    <!-- VIEW -->
+    <section class="view-tabs">
+
+      <button
+        class="view-btn active"
+        data-view="day"
+      >
+        Dia
+      </button>
+
+      <button
+        class="view-btn"
+        data-view="week"
+      >
+        Semana
+      </button>
+
+      <button
+        class="view-btn"
+        data-view="month"
+      >
+        Mês
+      </button>
+
+    </section>
+
+    <!-- PROGRESS -->
+    <section class="progress-container">
+
+      <div class="progress-top">
+
+        <span id="progressTitle">
+          Progresso diário
+        </span>
+
+        <span id="progressText">
+          0%
+        </span>
+
+      </div>
+
+      <div class="progress-bar">
+
+        <div
+          class="progress-fill"
+          id="progressFill"
+        ></div>
+
+      </div>
+
+    </section>
+
+    <!-- SEARCH -->
+    <section class="search-area">
+
+      <div class="search-box">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Buscar atividade ou categoria..."
+        />
+
+      </div>
+
+    </section>
+
+    <!-- TASKS -->
+    <section id="taskList"></section>
+
+    <!-- FAB -->
+    <button
+      class="fab"
+      id="openModal"
+    >
+      <i class="fa-solid fa-plus"></i>
+    </button>
+
+  </div>
+
+  <!-- CALENDAR -->
+  <div
+    class="calendar-modal"
+    id="calendarModal"
+  >
+
+    <div class="calendar-box">
+
+      <div class="calendar-header">
+
+        <button id="prevMonth">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <h3 id="monthYear"></h3>
+
+        <button id="nextMonth">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+      </div>
+
+      <div class="weekdays">
+
+        <span>Dom</span>
+        <span>Seg</span>
+        <span>Ter</span>
+        <span>Qua</span>
+        <span>Qui</span>
+        <span>Sex</span>
+        <span>Sáb</span>
+
+      </div>
+
+      <div
+        class="calendar-grid"
+        id="calendarGrid"
+      ></div>
+
+      <button
+        class="close-calendar"
+        id="closeCalendar"
+      >
+        Fechar
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- MODAL -->
+  <div
+    class="modal-overlay"
+    id="modalOverlay"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <h2>Nova atividade</h2>
+
+        <button id="closeModal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+      </div>
+
+      <form id="taskForm">
+
+        <!-- TITLE -->
+        <div class="input-group">
+
+          <label>Título</label>
+
+          <input
+            type="text"
+            id="taskTitle"
+            required
+            placeholder="Ex: Academia"
+          />
+
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="input-group">
+
+          <label>Descrição</label>
+
+          <textarea
+            id="taskDescription"
+            placeholder="Descrição..."
+          ></textarea>
+
+        </div>
+
+        <!-- PRIORITY -->
+        <div class="input-group">
+
+          <label>Prioridade</label>
+
+          <select id="taskPriority">
+
+            <option value="low">
+              Baixa
+            </option>
+
+            <option value="medium">
+              Média
+            </option>
+
+            <option value="high">
+              Alta
+            </option>
+
+          </select>
+
+        </div>
+
+        <!-- CATEGORY -->
+        <div class="input-group">
+
+          <label>Categoria</label>
+
+          <div class="category-row">
+
+            <select id="taskCategorySelect">
+
+              <option value="">
+                Selecionar categoria
+              </option>
+
+            </select>
+
+            <button
+              type="button"
+              id="newCategoryBtn"
+            >
+              +
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- NEW CATEGORY -->
+        <div
+          class="new-category-box"
+          id="newCategoryBox"
+        >
+
+          <div class="input-group">
+
+            <label>
+              Nova categoria
+            </label>
+
+            <input
+              type="text"
+              id="newCategoryName"
+              placeholder="Ex: Estudos"
+            />
+
+          </div>
+
+          <div class="input-group">
+
+            <label>
+              Cor da categoria
+            </label>
+
+            <div class="color-picker">
+
+              <label>
+                <input
+                  type="radio"
+                  name="color"
+                  value="#ef4444"
+                  checked
+                />
+                <span class="color red"></span>
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="color"
+                  value="#8b5cf6"
+                />
+                <span class="color purple"></span>
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="color"
+                  value="#ec4899"
+                />
+                <span class="color pink"></span>
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="color"
+                  value="#3b82f6"
+                />
+                <span class="color blue"></span>
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="color"
+                  value="#22c55e"
+                />
+                <span class="color green"></span>
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="color"
+                  value="#f59e0b"
+                />
+                <span class="color yellow"></span>
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- DATE -->
+        <div class="input-group">
+
+          <label>Data</label>
+
+          <input
+            type="date"
+            id="taskDate"
+            required
+          />
+
+        </div>
+
+        <!-- REPEAT -->
+        <div class="repeat-area">
+
+          <button
+            type="button"
+            id="toggleRepeat"
+          >
+            Repetir atividade
+          </button>
+
+          <div
+            class="repeat-days"
+            id="repeatDays"
+          >
+
+            <label><input type="checkbox" value="1">Seg</label>
+            <label><input type="checkbox" value="2">Ter</label>
+            <label><input type="checkbox" value="3">Qua</label>
+            <label><input type="checkbox" value="4">Qui</label>
+            <label><input type="checkbox" value="5">Sex</label>
+            <label><input type="checkbox" value="6">Sáb</label>
+            <label><input type="checkbox" value="0">Dom</label>
+
+          </div>
+
+        </div>
+
+        <button
+          class="submit-btn"
+          type="submit"
+        >
+          Salvar atividade
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- CONGRATS -->
+  <div
+    class="congrats-modal"
+    id="congratsModal"
+  >
+
+    <div class="congrats-box">
+
+      <div class="emoji">
+        🎉
+      </div>
+
+      <h2 id="congratsText"></h2>
+
+      <button id="closeCongrats">
+        Continuar
+      </button>
+
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+
+</html>
