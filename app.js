@@ -1,96 +1,96 @@
 const taskList =
-document.getElementById("taskList");
+    document.getElementById("taskList");
 
 const taskForm =
-document.getElementById("taskForm");
+    document.getElementById("taskForm");
 
 const modalOverlay =
-document.getElementById("modalOverlay");
+    document.getElementById("modalOverlay");
 
 const openModal =
-document.getElementById("openModal");
+    document.getElementById("openModal");
 
 const closeModal =
-document.getElementById("closeModal");
+    document.getElementById("closeModal");
 
 const progressFill =
-document.getElementById("progressFill");
+    document.getElementById("progressFill");
 
 const progressText =
-document.getElementById("progressText");
+    document.getElementById("progressText");
 
 const progressTitle =
-document.getElementById("progressTitle");
+    document.getElementById("progressTitle");
 
 const pendingCount =
-document.getElementById("pendingCount");
+    document.getElementById("pendingCount");
 
 const completedCount =
-document.getElementById("completedCount");
+    document.getElementById("completedCount");
 
 const searchInput =
-document.getElementById("searchInput");
+    document.getElementById("searchInput");
 
 const todayText =
-document.getElementById("todayText");
+    document.getElementById("todayText");
 
 const taskCategorySelect =
-document.getElementById("taskCategorySelect");
+    document.getElementById("taskCategorySelect");
 
 const newCategoryBtn =
-document.getElementById("newCategoryBtn");
+    document.getElementById("newCategoryBtn");
 
 const newCategoryBox =
-document.getElementById("newCategoryBox");
+    document.getElementById("newCategoryBox");
 
 const newCategoryName =
-document.getElementById("newCategoryName");
+    document.getElementById("newCategoryName");
 
 const repeatDays =
-document.getElementById("repeatDays");
+    document.getElementById("repeatDays");
 
 const calendarModal =
-document.getElementById("calendarModal");
+    document.getElementById("calendarModal");
 
 const openCalendar =
-document.getElementById("openCalendar");
+    document.getElementById("openCalendar");
 
 const closeCalendar =
-document.getElementById("closeCalendar");
+    document.getElementById("closeCalendar");
 
 const calendarGrid =
-document.getElementById("calendarGrid");
+    document.getElementById("calendarGrid");
 
 const monthYear =
-document.getElementById("monthYear");
+    document.getElementById("monthYear");
 
 const prevMonth =
-document.getElementById("prevMonth");
+    document.getElementById("prevMonth");
 
 const nextMonth =
-document.getElementById("nextMonth");
+    document.getElementById("nextMonth");
 
 const congratsModal =
-document.getElementById("congratsModal");
+    document.getElementById("congratsModal");
 
 const congratsText =
-document.getElementById("congratsText");
+    document.getElementById("congratsText");
 
 const closeCongrats =
-document.getElementById("closeCongrats");
+    document.getElementById("closeCongrats");
 
 let tasks =
-JSON.parse(
-  localStorage.getItem("tasks")
-) || [];
+    JSON.parse(
+        localStorage.getItem("tasks")
+    ) || [];
 
 let categories =
-JSON.parse(
-  localStorage.getItem("categories")
-) || {};
+    JSON.parse(
+        localStorage.getItem("categories")
+    ) || {};
 
 let selectedDate =
-new Date();
+    new Date();
 
 let currentView = "day";
 
@@ -100,22 +100,22 @@ let editingTaskId = null;
    FORMAT DATE
 ====================== */
 
-function formatDateLocal(date){
+function formatDateLocal(date) {
 
-  const year =
-  date.getFullYear();
+    const year =
+        date.getFullYear();
 
-  const month =
-  String(
-    date.getMonth() + 1
-  ).padStart(2,"0");
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
 
-  const day =
-  String(
-    date.getDate()
-  ).padStart(2,"0");
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2, "0");
 
-  return `${year}-${month}-${day}`;
+    return `${year}-${month}-${day}`;
 
 }
 
@@ -124,30 +124,30 @@ function formatDateLocal(date){
 ====================== */
 
 todayText.innerHTML =
-selectedDate.toLocaleDateString(
-  "pt-BR",
-  {
-    weekday:"long",
-    day:"numeric",
-    month:"long"
-  }
-);
+    selectedDate.toLocaleDateString(
+        "pt-BR",
+        {
+            weekday: "long",
+            day: "numeric",
+            month: "long"
+        }
+    );
 
 /* ======================
    SAVE
 ====================== */
 
-function save(){
+function save() {
 
-  localStorage.setItem(
-    "tasks",
-    JSON.stringify(tasks)
-  );
+    localStorage.setItem(
+        "tasks",
+        JSON.stringify(tasks)
+    );
 
-  localStorage.setItem(
-    "categories",
-    JSON.stringify(categories)
-  );
+    localStorage.setItem(
+        "categories",
+        JSON.stringify(categories)
+    );
 
 }
 
@@ -155,23 +155,23 @@ function save(){
    OPEN MODAL
 ====================== */
 
-openModal.onclick = ()=>{
+openModal.onclick = () => {
 
-  editingTaskId = null;
+    editingTaskId = null;
 
-  taskForm.reset();
+    taskForm.reset();
 
-  modalOverlay.classList.add(
-    "active"
-  );
+    modalOverlay.classList.add(
+        "active"
+    );
 
 };
 
-closeModal.onclick = ()=>{
+closeModal.onclick = () => {
 
-  modalOverlay.classList.remove(
-    "active"
-  );
+    modalOverlay.classList.remove(
+        "active"
+    );
 
 };
 
@@ -179,11 +179,11 @@ closeModal.onclick = ()=>{
    CATEGORY MODAL
 ====================== */
 
-newCategoryBtn.onclick = ()=>{
+newCategoryBtn.onclick = () => {
 
-  newCategoryBox.classList.toggle(
-    "active"
-  );
+    newCategoryBox.classList.toggle(
+        "active"
+    );
 
 };
 
@@ -191,25 +191,25 @@ newCategoryBtn.onclick = ()=>{
    RENDER CATEGORIES
 ====================== */
 
-function renderCategories(){
+function renderCategories() {
 
-  taskCategorySelect.innerHTML =
-  `
+    taskCategorySelect.innerHTML =
+        `
     <option value="">
       Selecionar categoria
     </option>
   `;
 
-  Object.keys(categories)
-  .forEach(category=>{
+    Object.keys(categories)
+        .forEach(category => {
 
-    taskCategorySelect.innerHTML += `
+            taskCategorySelect.innerHTML += `
       <option value="${category}">
         ${category}
       </option>
     `;
 
-  });
+        });
 
 }
 
@@ -217,161 +217,161 @@ function renderCategories(){
    CALENDAR
 ====================== */
 
-openCalendar.onclick = ()=>{
+openCalendar.onclick = () => {
 
-  calendarModal.classList.add(
-    "active"
-  );
-
-  renderCalendar();
-
-};
-
-closeCalendar.onclick = ()=>{
-
-  calendarModal.classList.remove(
-    "active"
-  );
-
-};
-
-prevMonth.onclick = ()=>{
-
-  selectedDate.setMonth(
-    selectedDate.getMonth() - 1
-  );
-
-  renderCalendar();
-
-};
-
-nextMonth.onclick = ()=>{
-
-  selectedDate.setMonth(
-    selectedDate.getMonth() + 1
-  );
-
-  renderCalendar();
-
-};
-
-function renderCalendar(){
-
-  calendarGrid.innerHTML = "";
-
-  const year =
-  selectedDate.getFullYear();
-
-  const month =
-  selectedDate.getMonth();
-
-  monthYear.innerHTML =
-  selectedDate.toLocaleDateString(
-    "pt-BR",
-    {
-      month:"long",
-      year:"numeric"
-    }
-  );
-
-  const firstDay =
-  new Date(
-    year,
-    month,
-    1
-  ).getDay();
-
-  const totalDays =
-  new Date(
-    year,
-    month + 1,
-    0
-  ).getDate();
-
-  for(
-    let i=0;
-    i<firstDay;
-    i++
-  ){
-
-    const empty =
-    document.createElement("div");
-
-    calendarGrid.appendChild(
-      empty
-    );
-
-  }
-
-  for(
-    let day=1;
-    day<=totalDays;
-    day++
-  ){
-
-    const div =
-    document.createElement("div");
-
-    div.className = "day";
-
-    div.innerHTML = day;
-
-    const currentDate =
-    new Date(
-      year,
-      month,
-      day
-    );
-
-    const currentFormatted =
-    formatDateLocal(
-      currentDate
-    );
-
-    const hasTask =
-    tasks.some(
-      t => t.date === currentFormatted
-    );
-
-    if(hasTask){
-
-      div.classList.add(
-        "has-task"
-      );
-
-    }
-
-    if(
-      currentFormatted ===
-      formatDateLocal(selectedDate)
-    ){
-
-      div.classList.add(
+    calendarModal.classList.add(
         "active"
-      );
+    );
+
+    renderCalendar();
+
+};
+
+closeCalendar.onclick = () => {
+
+    calendarModal.classList.remove(
+        "active"
+    );
+
+};
+
+prevMonth.onclick = () => {
+
+    selectedDate.setMonth(
+        selectedDate.getMonth() - 1
+    );
+
+    renderCalendar();
+
+};
+
+nextMonth.onclick = () => {
+
+    selectedDate.setMonth(
+        selectedDate.getMonth() + 1
+    );
+
+    renderCalendar();
+
+};
+
+function renderCalendar() {
+
+    calendarGrid.innerHTML = "";
+
+    const year =
+        selectedDate.getFullYear();
+
+    const month =
+        selectedDate.getMonth();
+
+    monthYear.innerHTML =
+        selectedDate.toLocaleDateString(
+            "pt-BR",
+            {
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+    const firstDay =
+        new Date(
+            year,
+            month,
+            1
+        ).getDay();
+
+    const totalDays =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+    for (
+        let i = 0;
+        i < firstDay;
+        i++
+    ) {
+
+        const empty =
+            document.createElement("div");
+
+        calendarGrid.appendChild(
+            empty
+        );
 
     }
 
-    div.onclick = ()=>{
+    for (
+        let day = 1;
+        day <= totalDays;
+        day++
+    ) {
 
-      selectedDate =
-      currentDate;
+        const div =
+            document.createElement("div");
 
-      renderTasks();
+        div.className = "day";
 
-      updateDashboard();
+        div.innerHTML = day;
 
-      renderCalendar();
+        const currentDate =
+            new Date(
+                year,
+                month,
+                day
+            );
 
-      calendarModal.classList.remove(
-        "active"
-      );
+        const currentFormatted =
+            formatDateLocal(
+                currentDate
+            );
 
-    };
+        const hasTask =
+            tasks.some(
+                t => t.date === currentFormatted
+            );
 
-    calendarGrid.appendChild(div);
+        if (hasTask) {
 
-  }
+            div.classList.add(
+                "has-task"
+            );
+
+        }
+
+        if (
+            currentFormatted ===
+            formatDateLocal(selectedDate)
+        ) {
+
+            div.classList.add(
+                "active"
+            );
+
+        }
+
+        div.onclick = () => {
+
+            selectedDate =
+                currentDate;
+
+            renderTasks();
+
+            updateDashboard();
+
+            renderCalendar();
+
+            calendarModal.classList.remove(
+                "active"
+            );
+
+        };
+
+        calendarGrid.appendChild(div);
+
+    }
 
 }
 
@@ -380,29 +380,29 @@ function renderCalendar(){
 ====================== */
 
 document.querySelectorAll(
-  ".view-btn"
-).forEach(btn=>{
+    ".view-btn"
+).forEach(btn => {
 
-  btn.onclick = ()=>{
+    btn.onclick = () => {
 
-    document
-    .querySelectorAll(".view-btn")
-    .forEach(
-      b=>b.classList.remove(
-        "active"
-      )
-    );
+        document
+            .querySelectorAll(".view-btn")
+            .forEach(
+                b => b.classList.remove(
+                    "active"
+                )
+            );
 
-    btn.classList.add("active");
+        btn.classList.add("active");
 
-    currentView =
-    btn.dataset.view;
+        currentView =
+            btn.dataset.view;
 
-    renderTasks();
+        renderTasks();
 
-    updateDashboard();
+        updateDashboard();
 
-  };
+    };
 
 });
 
@@ -411,12 +411,12 @@ document.querySelectorAll(
 ====================== */
 
 document.getElementById(
-  "toggleRepeat"
-).onclick = ()=>{
+    "toggleRepeat"
+).onclick = () => {
 
-  repeatDays.classList.toggle(
-    "active"
-  );
+    repeatDays.classList.toggle(
+        "active"
+    );
 
 };
 
@@ -425,208 +425,270 @@ document.getElementById(
 ====================== */
 
 taskForm.addEventListener(
-  "submit",
-  e=>{
+    "submit",
+    e => {
 
-    e.preventDefault();
+        e.preventDefault();
 
-    const title =
-    document.getElementById(
-      "taskTitle"
-    ).value;
+        const title =
+            document.getElementById(
+                "taskTitle"
+            ).value;
 
-    const description =
-    document.getElementById(
-      "taskDescription"
-    ).value;
+        const description =
+            document.getElementById(
+                "taskDescription"
+            ).value;
 
-    const priority =
-    document.getElementById(
-      "taskPriority"
-    ).value;
+        const priority =
+            document.getElementById(
+                "taskPriority"
+            ).value;
 
-    const date =
-    document.getElementById(
-      "taskDate"
-    ).value;
+        const date =
+            document.getElementById(
+                "taskDate"
+            ).value;
 
-    let category =
-    taskCategorySelect.value;
+        let category =
+            taskCategorySelect.value;
 
-    if(
-      newCategoryName.value
-      .trim() !== ""
-    ){
+        if (
+            newCategoryName.value
+                .trim() !== ""
+        ) {
 
-      category =
-      newCategoryName.value;
+            category =
+                newCategoryName.value;
 
-      const selectedColor =
-      document.querySelector(
-        "input[name='color']:checked"
-      ).value;
+            const selectedColor =
+                document.querySelector(
+                    "input[name='color']:checked"
+                ).value;
 
-      categories[category] =
-      selectedColor;
+            categories[category] =
+                selectedColor;
+
+        }
+
+        const color =
+            categories[category];
+
+        if (editingTaskId) {
+
+            tasks = tasks.map(task =>
+
+                task.id === editingTaskId
+                    ? {
+                        ...task,
+                        title,
+                        description,
+                        priority,
+                        category,
+                        color,
+                        date
+                    }
+                    : task
+
+            );
+
+        } else {
+
+            const repeatSelected = [
+                ...document.querySelectorAll(
+                    "#repeatDays input:checked"
+                )
+            ].map(input => Number(input.value));
+
+            // SEM REPETIÇÃO
+            if (repeatSelected.length === 0) {
+
+                tasks.push({
+                    id: Date.now(),
+                    title,
+                    description,
+                    priority,
+                    category,
+                    color,
+                    date,
+                    completed: false
+                });
+
+            } else {
+
+                // DATA INICIAL
+                const startDate =
+                    new Date(date + "T00:00:00");
+
+                // QUANTAS SEMANAS GERAR
+                // (aqui gera 12 semanas)
+                const weeksToGenerate = 12;
+
+                for (let week = 0; week < weeksToGenerate; week++) {
+
+                    repeatSelected.forEach(dayOfWeek => {
+
+                        const repeatedDate =
+                            new Date(startDate);
+
+                        // início da semana
+                        repeatedDate.setDate(
+                            startDate.getDate()
+                            -
+                            startDate.getDay()
+                            +
+                            dayOfWeek
+                            +
+                            (week * 7)
+                        );
+
+                        // evita criar tarefa antes da data inicial
+                        if (repeatedDate < startDate) {
+                            return;
+                        }
+
+                        tasks.push({
+
+                            id:
+                                Date.now()
+                                + Math.random(),
+
+                            title,
+
+                            description,
+
+                            priority,
+
+                            category,
+
+                            color,
+
+                            date: formatDateLocal(
+                                repeatedDate
+                            ),
+
+                            completed: false
+
+                        });
+
+                    });
+
+                }
+
+            }
+
+        }
+        save();
+
+        renderTasks();
+
+        renderCalendar();
+
+        updateDashboard();
+
+        renderCategories();
+
+        taskForm.reset();
+
+        modalOverlay.classList.remove(
+            "active"
+        );
+
+        newCategoryBox.classList.remove(
+            "active"
+        );
+
+        editingTaskId = null;
 
     }
-
-    const color =
-    categories[category];
-
-    if(editingTaskId){
-
-      tasks = tasks.map(task=>
-
-        task.id===editingTaskId
-        ? {
-            ...task,
-            title,
-            description,
-            priority,
-            category,
-            color,
-            date
-          }
-        : task
-
-      );
-
-    } else {
-
-      tasks.push({
-
-        id:Date.now(),
-
-        title,
-
-        description,
-
-        priority,
-
-        category,
-
-        color,
-
-        date,
-
-        completed:false
-
-      });
-
-    }
-
-    save();
-
-    renderTasks();
-
-    renderCalendar();
-
-    updateDashboard();
-
-    renderCategories();
-
-    taskForm.reset();
-
-    modalOverlay.classList.remove(
-      "active"
-    );
-
-    newCategoryBox.classList.remove(
-      "active"
-    );
-
-    editingTaskId = null;
-
-  }
 );
 
 /* ======================
    FILTER TASKS
 ====================== */
 
-function getFilteredTasks(){
+function getFilteredTasks() {
 
-  const search =
-  searchInput.value.toLowerCase();
+    const search =
+        searchInput.value.toLowerCase();
 
-  return tasks.filter(task=>{
+    return tasks.filter(task => {
 
-    const taskDate =
-    new Date(
-      task.date + "T00:00:00"
-    );
+        const taskDate =
+            new Date(
+                task.date + "T00:00:00"
+            );
 
-    const sameDay =
-    formatDateLocal(taskDate)
-    ===
-    formatDateLocal(selectedDate);
+        const sameDay =
+            formatDateLocal(taskDate)
+            ===
+            formatDateLocal(selectedDate);
 
-    const startWeek =
-    new Date(selectedDate);
+        const startWeek =
+            new Date(selectedDate);
 
-    startWeek.setDate(
-      selectedDate.getDate()
-      -
-      selectedDate.getDay()
-    );
+        startWeek.setDate(
+            selectedDate.getDate()
+            -
+            selectedDate.getDay()
+        );
 
-    startWeek.setHours(0,0,0,0);
+        startWeek.setHours(0, 0, 0, 0);
 
-    const endWeek =
-    new Date(startWeek);
+        const endWeek =
+            new Date(startWeek);
 
-    endWeek.setDate(
-      startWeek.getDate() + 6
-    );
+        endWeek.setDate(
+            startWeek.getDate() + 6
+        );
 
-    endWeek.setHours(
-      23,59,59,999
-    );
+        endWeek.setHours(
+            23, 59, 59, 999
+        );
 
-    const sameWeek =
-    taskDate >= startWeek
-    &&
-    taskDate <= endWeek;
+        const sameWeek =
+            taskDate >= startWeek
+            &&
+            taskDate <= endWeek;
 
-    const sameMonth =
-    taskDate.getMonth()
-    ===
-    selectedDate.getMonth()
-    &&
-    taskDate.getFullYear()
-    ===
-    selectedDate.getFullYear();
+        const sameMonth =
+            taskDate.getMonth()
+            ===
+            selectedDate.getMonth()
+            &&
+            taskDate.getFullYear()
+            ===
+            selectedDate.getFullYear();
 
-    let valid = false;
+        let valid = false;
 
-    if(currentView==="day"){
-      valid = sameDay;
-    }
+        if (currentView === "day") {
+            valid = sameDay;
+        }
 
-    if(currentView==="week"){
-      valid = sameWeek;
-    }
+        if (currentView === "week") {
+            valid = sameWeek;
+        }
 
-    if(currentView==="month"){
-      valid = sameMonth;
-    }
+        if (currentView === "month") {
+            valid = sameMonth;
+        }
 
-    return (
-      valid
-      &&
-      (
-        task.title
-        .toLowerCase()
-        .includes(search)
-        ||
-        task.category
-        .toLowerCase()
-        .includes(search)
-      )
-    );
+        return (
+            valid
+            &&
+            (
+                task.title
+                    .toLowerCase()
+                    .includes(search)
+                ||
+                task.category
+                    .toLowerCase()
+                    .includes(search)
+            )
+        );
 
-  });
+    });
 
 }
 
@@ -634,17 +696,17 @@ function getFilteredTasks(){
    RENDER TASKS
 ====================== */
 
-function renderTasks(){
+function renderTasks() {
 
-  taskList.innerHTML = "";
+    taskList.innerHTML = "";
 
-  const filtered =
-  getFilteredTasks();
+    const filtered =
+        getFilteredTasks();
 
-  if(!filtered.length){
+    if (!filtered.length) {
 
-    taskList.innerHTML =
-    `
+        taskList.innerHTML =
+            `
       <p
         style="
           text-align:center;
@@ -656,99 +718,99 @@ function renderTasks(){
       </p>
     `;
 
-    return;
-
-  }
-
-  if(currentView==="day"){
-
-    createSection(
-      "Atividades do dia",
-      filtered
-    );
-
-  }
-
-  if(currentView==="week"){
-
-    const weekDays = [
-      "Domingo",
-      "Segunda",
-      "Terça",
-      "Quarta",
-      "Quinta",
-      "Sexta",
-      "Sábado"
-    ];
-
-    for(
-      let i=0;
-      i<7;
-      i++
-    ){
-
-      const day =
-      new Date(selectedDate);
-
-      day.setDate(
-        selectedDate.getDate()
-        -
-        selectedDate.getDay()
-        + i
-      );
-
-      const dayTasks =
-      filtered.filter(
-        t =>
-        t.date ===
-        formatDateLocal(day)
-      );
-
-      createSection(
-        weekDays[i],
-        dayTasks
-      );
+        return;
 
     }
 
-  }
+    if (currentView === "day") {
 
-  if(currentView==="month"){
+        createSection(
+            "Atividades do dia",
+            filtered
+        );
 
-    const grouped = {};
+    }
 
-    filtered.forEach(task=>{
+    if (currentView === "week") {
 
-      if(!grouped[task.date]){
+        const weekDays = [
+            "Domingo",
+            "Segunda",
+            "Terça",
+            "Quarta",
+            "Quinta",
+            "Sexta",
+            "Sábado"
+        ];
 
-        grouped[task.date] = [];
+        for (
+            let i = 0;
+            i < 7;
+            i++
+        ) {
 
-      }
+            const day =
+                new Date(selectedDate);
 
-      grouped[task.date].push(task);
+            day.setDate(
+                selectedDate.getDate()
+                -
+                selectedDate.getDay()
+                + i
+            );
 
-    });
+            const dayTasks =
+                filtered.filter(
+                    t =>
+                        t.date ===
+                        formatDateLocal(day)
+                );
 
-    Object.keys(grouped)
-    .sort()
-    .forEach(date=>{
+            createSection(
+                weekDays[i],
+                dayTasks
+            );
 
-      createSection(
-        new Date(
-          date + "T00:00:00"
-        ).toLocaleDateString(
-          "pt-BR",
-          {
-            day:"numeric",
-            month:"long"
-          }
-        ),
-        grouped[date]
-      );
+        }
 
-    });
+    }
 
-  }
+    if (currentView === "month") {
+
+        const grouped = {};
+
+        filtered.forEach(task => {
+
+            if (!grouped[task.date]) {
+
+                grouped[task.date] = [];
+
+            }
+
+            grouped[task.date].push(task);
+
+        });
+
+        Object.keys(grouped)
+            .sort()
+            .forEach(date => {
+
+                createSection(
+                    new Date(
+                        date + "T00:00:00"
+                    ).toLocaleDateString(
+                        "pt-BR",
+                        {
+                            day: "numeric",
+                            month: "long"
+                        }
+                    ),
+                    grouped[date]
+                );
+
+            });
+
+    }
 
 }
 
@@ -757,42 +819,42 @@ function renderTasks(){
 ====================== */
 
 function createSection(
-  title,
-  data
-){
+    title,
+    data
+) {
 
-  if(!data.length){
-    return;
-  }
+    if (!data.length) {
+        return;
+    }
 
-  const sectionTitle =
-  document.createElement("h2");
+    const sectionTitle =
+        document.createElement("h2");
 
-  sectionTitle.className =
-  "section-title";
+    sectionTitle.className =
+        "section-title";
 
-  sectionTitle.innerHTML =
-  title;
+    sectionTitle.innerHTML =
+        title;
 
-  taskList.appendChild(
-    sectionTitle
-  );
+    taskList.appendChild(
+        sectionTitle
+    );
 
-  data.forEach(task=>{
+    data.forEach(task => {
 
-    const card =
-    document.createElement("div");
+        const card =
+            document.createElement("div");
 
-    card.className =
-    `
+        card.className =
+            `
       task-card
       ${task.completed
-        ? "completed"
-        : ""
-      }
+                ? "completed"
+                : ""
+            }
     `;
 
-    card.innerHTML = `
+        card.innerHTML = `
       <div class="task-top">
 
         <h3 class="task-title">
@@ -815,7 +877,7 @@ function createSection(
         >
           ${translatePriority(
             task.priority
-          )}
+        )}
         </span>
 
         <span
@@ -867,83 +929,83 @@ function createSection(
       </div>
     `;
 
-    /* COMPLETE */
+        /* COMPLETE */
 
-    card
-    .querySelector(".complete-btn")
-    .onclick = ()=>{
+        card
+            .querySelector(".complete-btn")
+            .onclick = () => {
 
-      toggleTask(task.id);
+                toggleTask(task.id);
 
-    };
+            };
 
-    /* EDIT */
+        /* EDIT */
 
-    card
-    .querySelector(".edit-btn")
-    .onclick = ()=>{
+        card
+            .querySelector(".edit-btn")
+            .onclick = () => {
 
-      editingTaskId =
-      task.id;
+                editingTaskId =
+                    task.id;
 
-      document.getElementById(
-        "taskTitle"
-      ).value =
-      task.title;
+                document.getElementById(
+                    "taskTitle"
+                ).value =
+                    task.title;
 
-      document.getElementById(
-        "taskDescription"
-      ).value =
-      task.description;
+                document.getElementById(
+                    "taskDescription"
+                ).value =
+                    task.description;
 
-      document.getElementById(
-        "taskPriority"
-      ).value =
-      task.priority;
+                document.getElementById(
+                    "taskPriority"
+                ).value =
+                    task.priority;
 
-      document.getElementById(
-        "taskDate"
-      ).value =
-      task.date;
+                document.getElementById(
+                    "taskDate"
+                ).value =
+                    task.date;
 
-      taskCategorySelect.value =
-      task.category;
+                taskCategorySelect.value =
+                    task.category;
 
-      modalOverlay.classList.add(
-        "active"
-      );
+                modalOverlay.classList.add(
+                    "active"
+                );
 
-    };
+            };
 
-    /* DELETE */
+        /* DELETE */
 
-    card
-    .querySelector(".delete-btn")
-    .onclick = ()=>{
+        card
+            .querySelector(".delete-btn")
+            .onclick = () => {
 
-      if(
-        confirm(
-          "Excluir atividade?"
-        )
-      ){
+                if (
+                    confirm(
+                        "Excluir atividade?"
+                    )
+                ) {
 
-        tasks = tasks.filter(
-          t=>t.id!==task.id
-        );
+                    tasks = tasks.filter(
+                        t => t.id !== task.id
+                    );
 
-        save();
+                    save();
 
-        renderTasks();
+                    renderTasks();
 
-        updateDashboard();
+                    updateDashboard();
 
-      }
+                }
 
-    };
+            };
 
-    taskList.appendChild(card);
+        taskList.appendChild(card);
 
-  });
+    });
 
 }
 
@@ -951,27 +1013,27 @@ function createSection(
    TOGGLE TASK
 ====================== */
 
-function toggleTask(id){
+function toggleTask(id) {
 
-  tasks = tasks.map(task=>
+    tasks = tasks.map(task =>
 
-    task.id===id
-    ? {
-        ...task,
-        completed:
-        !task.completed
-      }
-    : task
+        task.id === id
+            ? {
+                ...task,
+                completed:
+                    !task.completed
+            }
+            : task
 
-  );
+    );
 
-  save();
+    save();
 
-  renderTasks();
+    renderTasks();
 
-  updateDashboard();
+    updateDashboard();
 
-  checkCongrats();
+    checkCongrats();
 
 }
 
@@ -979,59 +1041,59 @@ function toggleTask(id){
    PROGRESS
 ====================== */
 
-function updateDashboard(){
+function updateDashboard() {
 
-  const filtered =
-  getFilteredTasks();
+    const filtered =
+        getFilteredTasks();
 
-  const completed =
-  filtered.filter(
-    t=>t.completed
-  ).length;
+    const completed =
+        filtered.filter(
+            t => t.completed
+        ).length;
 
-  const pending =
-  filtered.filter(
-    t=>!t.completed
-  ).length;
+    const pending =
+        filtered.filter(
+            t => !t.completed
+        ).length;
 
-  pendingCount.innerHTML =
-  pending;
+    pendingCount.innerHTML =
+        pending;
 
-  completedCount.innerHTML =
-  completed;
+    completedCount.innerHTML =
+        completed;
 
-  const total =
-  filtered.length;
+    const total =
+        filtered.length;
 
-  const percent =
-  total===0
-  ?0
-  :Math.round(
-    completed
-    / total
-    * 100
-  );
+    const percent =
+        total === 0
+            ? 0
+            : Math.round(
+                completed
+                / total
+                * 100
+            );
 
-  progressFill.style.width =
-  `${percent}%`;
+    progressFill.style.width =
+        `${percent}%`;
 
-  progressText.innerHTML =
-  `${percent}%`;
+    progressText.innerHTML =
+        `${percent}%`;
 
-  if(currentView==="day"){
-    progressTitle.innerHTML =
-    "Progresso diário";
-  }
+    if (currentView === "day") {
+        progressTitle.innerHTML =
+            "Progresso diário";
+    }
 
-  if(currentView==="week"){
-    progressTitle.innerHTML =
-    "Progresso semanal";
-  }
+    if (currentView === "week") {
+        progressTitle.innerHTML =
+            "Progresso semanal";
+    }
 
-  if(currentView==="month"){
-    progressTitle.innerHTML =
-    "Progresso mensal";
-  }
+    if (currentView === "month") {
+        progressTitle.innerHTML =
+            "Progresso mensal";
+    }
 
 }
 
@@ -1039,52 +1101,52 @@ function updateDashboard(){
    CONGRATS
 ====================== */
 
-function checkCongrats(){
+function checkCongrats() {
 
-  const filtered =
-  getFilteredTasks();
+    const filtered =
+        getFilteredTasks();
 
-  if(
-    filtered.length
-    &&
-    filtered.every(
-      t=>t.completed
-    )
-  ){
+    if (
+        filtered.length
+        &&
+        filtered.every(
+            t => t.completed
+        )
+    ) {
 
-    let text = "";
+        let text = "";
 
-    if(currentView==="day"){
-      text =
-      "Parabéns! Você concluiu todas as tarefas do dia 🎉";
+        if (currentView === "day") {
+            text =
+                "Parabéns! Você concluiu todas as tarefas do dia 🎉";
+        }
+
+        if (currentView === "week") {
+            text =
+                "Semana finalizada com sucesso 🚀";
+        }
+
+        if (currentView === "month") {
+            text =
+                "Mês concluído com sucesso 🏆";
+        }
+
+        congratsText.innerHTML =
+            text;
+
+        congratsModal.classList.add(
+            "active"
+        );
+
     }
-
-    if(currentView==="week"){
-      text =
-      "Semana finalizada com sucesso 🚀";
-    }
-
-    if(currentView==="month"){
-      text =
-      "Mês concluído com sucesso 🏆";
-    }
-
-    congratsText.innerHTML =
-    text;
-
-    congratsModal.classList.add(
-      "active"
-    );
-
-  }
 
 }
 
-closeCongrats.onclick = ()=>{
+closeCongrats.onclick = () => {
 
-  congratsModal.classList.remove(
-    "active"
-  );
+    congratsModal.classList.remove(
+        "active"
+    );
 
 };
 
@@ -1092,17 +1154,17 @@ closeCongrats.onclick = ()=>{
    PRIORITY
 ====================== */
 
-function translatePriority(p){
+function translatePriority(p) {
 
-  if(p==="high"){
-    return "Alta";
-  }
+    if (p === "high") {
+        return "Alta";
+    }
 
-  if(p==="medium"){
-    return "Média";
-  }
+    if (p === "medium") {
+        return "Média";
+    }
 
-  return "Baixa";
+    return "Baixa";
 
 }
 
@@ -1111,14 +1173,14 @@ function translatePriority(p){
 ====================== */
 
 searchInput.addEventListener(
-  "input",
-  ()=>{
+    "input",
+    () => {
 
-    renderTasks();
+        renderTasks();
 
-    updateDashboard();
+        updateDashboard();
 
-  }
+    }
 );
 
 /* ======================

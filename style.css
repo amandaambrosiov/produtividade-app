@@ -57,17 +57,17 @@ body{
 }
 
 .small-card{
-  padding:16px;
+  padding:10px 16px;
   border-radius:22px;
   color:#fff;
 }
 
 .pending{
-  background:#ef4444;
+  background:#a0a0a0;
 }
 
 .completed{
-  background:#22c55e;
+  background:#9171db;
 }
 
 .small-card h3{
